@@ -27,9 +27,10 @@ void main()
 
 	//Question 2
     //Write your program code here
-	scanf("%d", &n);
+	int user_input;
+	scanf("%d", &user_input);
 	
-	while (n != -1){
+	while (user_input != -1){
 		if (head == NULL){
 			head = malloc(sizeof(ListNode));
 			p = head; 
@@ -39,18 +40,19 @@ void main()
 			p = p->next;
 		}
 
-		p->item = n;
+		p->item = user_input;
 
-		scanf("%d", &n);
+		scanf("%d", &user_input);
 	}
-	p->next = NULL;
+	p->next= NULL;
 
-	temp = head; 
+	ListNode *t = head; 
 	printf("Current list: ");
-	while (temp != NULL){
-		printf("%d ", temp -> item);
-		temp = temp->next;
+	while (t != NULL){
+		printf("%d ", t->item);
+		t = t->next;
 	}
+	printf("\n");
 
    //////////////////////////////////////////////////////////////////
 }
