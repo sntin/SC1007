@@ -113,5 +113,25 @@ int insertNode2(LinkedList *ll, int index, int item){
 int removeNode2(LinkedList *ll,int index)
 {
     /* Write your program code here */
+    if (index == 0){
+        ListNode *temp = ll->head; 
+        if (temp == NULL){
+            return 0;
+        }
+        ll->head = temp->next; 
+        free(temp);
+    }
+    else {
+        ListNode *before_rem = findNode2(*ll, index - 1);
+
+        if (before_rem == NULL || before_rem->next == NULL){
+            return 0; 
+        }
+
+        ListNode *temp = before_rem->next; 
+        before_rem->next = temp->next; 
+        free(temp);
+    }
+
 }
 

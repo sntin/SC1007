@@ -110,4 +110,16 @@ void deleteList(ListNode **ptrHead){
 int split(ListNode *cur, ListNode **ptrEvenList,ListNode **ptrOddList)
 {
     /* Write your program code here. */
+    int i = 0; 
+    while (cur != NULL){
+        if (i % 2 == 0){
+            insertNode(ptrEvenList, i/2, cur->item);
+        }
+        else {
+            insertNode(ptrOddList, (i-1)/2, cur->item);
+        }
+        i++;
+        cur = cur->next; 
+    }
+    return 1; 
 }

@@ -42,6 +42,21 @@ void main ()
 			removes(s,n);
 	}while (choice!=3);
 
+
+	printf("Do you want to 1-insert or 2-remove or 3-quit?:");
+	scanf("%d",&choice);
+	while (choice != 3) 
+	{
+		// getchar(); //to clear the return carriage in the buffer
+		if (choice==1)
+			insert(s,n);
+		else if (choice==2)
+			removes(s,n);
+
+		printf("Do you want to 1-insert or 2-remove or 3-quit?:");
+		scanf("%d",&choice);
+	}
+
 	free(s);
 
 }
@@ -69,7 +84,7 @@ void removes(char *s, int n)
 }
 
 //////////////////////////////////////////
-void insert(char *s, int n)
+void insert(char* s, int n)
 {
 	// write your code here
 	fflush(stdin);

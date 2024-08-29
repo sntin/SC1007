@@ -100,7 +100,15 @@ void deleteList(ListNode **ptrHead){
     *ptrHead=NULL;
 }
 
-int duplicateReverse(ListNode *cur,ListNode **ptrNewHead)
+int duplicateReverse(ListNode *cur, ListNode **ptrNewHead)
 {
 /* Write your program code here*/
+    // head -> n1 -> n2 -> n3 ->
+    while (cur != NULL){  
+        if (!insertNode(ptrNewHead, 0, cur->item)) {
+            return -1; 
+        }
+        cur = cur->next; 
+    }
+    return 0; 
 }
