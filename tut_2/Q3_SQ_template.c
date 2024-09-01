@@ -103,6 +103,53 @@ int main()
 void sortStack(Stack *s)
 {
     /* add your code here */
+	Stack temp1, temp2; 
+	temp1.ll.head = temp1.ll.tail = temp2.ll.head = temp2.ll.tail = NULL; 
+	temp1.ll.size = temp2.ll.size = 0;
+
+	int size = s->ll.size; 
+	for (int i = 0; i < size; i++) {
+		int num = s->ll.head->item; 
+
+		if (i == 0) {
+			push(&temp1, num);
+			pop(s); 
+			continue;  
+		}
+
+		if (num < temp1.ll.head->item) {
+			int movedtotemp2 = 0; 
+			while (num < temp1.ll.head->item) {
+				push(&temp2, temp1.ll.head->item); 
+				pop(&temp1); 
+				movedtotemp2++;
+
+				if (temp1.ll.head == NULL) {
+					break; 
+				}
+			}
+			
+			push(&temp1, num); 
+			pop(s); 
+
+			while (movedtotemp2 > 0) {
+				push(&temp1, temp2.ll.head->item); 
+				pop(&temp2); 
+				movedtotemp2--; 
+			}
+		}
+		else {
+			push(&temp1, num); 
+			pop(s); 
+		}
+	} 
+
+	for (int i = 0; i < size; i++){
+		push(s, temp1.ll.head->item); 
+		pop(&temp1); 
+	}
+
+
 }
 
 
