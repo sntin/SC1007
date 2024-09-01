@@ -110,6 +110,29 @@ int main()
 void reverseFirstKItems(Queue *q, int k)
 {
     /* add your code here */
+	Stack s; 
+	s.ll.head = s.ll.tail = NULL; 
+	s.ll.size = 0; 
+
+	// get k items and reverse it in stack
+	for (int i = 0; i < k; i++) {
+		push(&s, q->ll.head->item); 
+		dequeue(q); 
+	}
+	
+	// put back the reverse items at the back of queue
+	for (int i = 0; i < k; i++) {
+		enqueue(q, s.ll.head->item); 
+		pop(&s); 
+	}
+
+	// move the first size - k items back at the queue
+	for (int i = 0; i < q->ll.size - k; i++) {
+		int val = dequeue(q); 
+		enqueue(q, val); 
+	}
+
+
 }
 
 

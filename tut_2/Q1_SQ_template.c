@@ -108,6 +108,20 @@ int main()
 void reverseStack(Stack *s)
 {
 	/* add your code here */
+	Queue q; 
+	q.ll.head = q.ll.tail = NULL;
+	q.ll.size = 0; 
+
+	while (s->ll.size != 0) {
+		enqueue(&q, s->ll.head->item); 
+		pop(s); 
+	}
+
+	while (q.ll.size != 0){
+		push(s, q.ll.head->item); 
+		dequeue(&q); 
+	}
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
