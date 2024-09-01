@@ -131,7 +131,7 @@ void removeUntil(Stack *s, int value){
 void recursiveReverse(Queue *q){
 	// write your code here
 	// okay this is so cool!
-	
+
 	int size = q->ll.size; 
 	if (size == 1) {
 		return; 
@@ -147,7 +147,55 @@ void recursiveReverse(Queue *q){
 
 int palindrome(char *word){
 
-	// write your code here
+	// write your code here 
+	// create two queues
+	Queue original, reversed;
+	original.ll.head = original.ll.tail = reversed.ll.head = reversed.ll.tail = NULL ;
+	original.ll.size = reversed.ll.size = 0;  
+
+	int isPalindrome = 0; 
+
+	// populate the queues, ignoring spaces, and converting to lowercase
+	for (int i = 0; word[i] != '\0'; i++) {
+		if (word[i] == ' ') {
+			continue; 
+		}
+
+		if (word[i] >= 'A' & word[i] <= 'Z') {
+			enqueue(&original, word[i] + 32);
+			enqueue(&reversed, word[i] + 32);
+		}
+		else {
+			enqueue(&original, word[i]);
+			enqueue(&reversed, word[i]);
+		}
+
+	}
+
+	// reverse one of the queue
+	recursiveReverse(&reversed);
+
+
+	// check if palindrome
+	int size = original.ll.size;
+	for (int i = 0; i < size; i++) {
+		if (original.ll.head->item != reversed.ll.head->item) {
+			isPalindrome = -1; 
+			break;
+		}
+		dequeue(&original); 
+		dequeue(&reversed);
+	}
+
+	// return accordingly
+	if (isPalindrome == -1){
+		printf("The string is not a palindrome.\n");
+	}
+	else {
+		printf("The string is a palindrome.\n");
+	}
+
+	return isPalindrome;
 }
 
 
