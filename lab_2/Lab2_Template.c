@@ -119,7 +119,9 @@ int main()
 //Question 1
 
 void removeUntil(Stack *s, int value){
-
+	while (s->ll.head->item != value) {
+		pop(s);
+	}
 	// write your code here
 }
 
@@ -127,9 +129,17 @@ void removeUntil(Stack *s, int value){
 //Question 2
 
 void recursiveReverse(Queue *q){
-
 	// write your code here
+	// okay this is so cool!
+	
+	int size = q->ll.size; 
+	if (size == 1) {
+		return; 
+	}
 
+	int val = dequeue(q); 
+	recursiveReverse(q); 
+	enqueue(q, val); 
 }
 
 ////////////////////////////////////////////////////////////
