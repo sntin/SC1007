@@ -112,7 +112,6 @@ int main()
 	else
 		printf("balanced!\n");
 
-	return 0;
 }
 
 ////////////////////////////////////////////////////////////////
@@ -206,7 +205,30 @@ int palindrome(char *word){
 int balanced(char *expression){
 
 	// write your code here
+	Stack s; 
+	s.ll.head = s.ll.tail = NULL;
+	s.ll.size = 0; 
 
+
+	for (int i = 0; expression[i] != '\0'; i++) {
+		char val = expression[i]; 
+		if ((val == '[') | (val == '(') | (val == '{')) {
+			push(&s, val); 
+		}
+		else if ((val == ']') | (val == ')') | (val == '}')) {
+			if (s.ll.size == 0){
+				return 1; 
+			}
+			char currentchar = peek(&s);
+			if ((currentchar == '(' & val == ')') | (currentchar == '[' & val == ']') | (currentchar == '{' & val == '}')) {
+				pop(&s);
+			} else {
+				return 1; 
+			}
+		}
+	}
+
+	return 0; 
 }
 
 ////////////////////////////////////////////////////////////////////////////////
