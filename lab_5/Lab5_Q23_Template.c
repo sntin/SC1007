@@ -24,6 +24,8 @@ typedef struct _graph{
 void printGraphMatrix(Graph );
 void calDegreeV(Graph,int *);
 void printDegreeV(int *,int );
+void adjM2adjL(Graph *);
+void printGraphList(Graph); 
 
 int main()
 {
@@ -66,10 +68,16 @@ int main()
 
 
     printGraphMatrix(g);
+    
+    adjM2adjL(&g); 
+
+    printGraphList(g); 
 
     calDegreeV(g,degreeV);
     
     printDegreeV(degreeV,g.V);
+
+
 
     return 0;
 }
@@ -89,9 +97,49 @@ void printGraphMatrix(Graph g)
 
 }
 
+void adjM2adjL(Graph* g) {
+    g->adj.list = (ListNode **)malloc(g->V * sizeof(ListNode *));
+    for (int i = 0; i < g->V; i++) {
+        g->adj.list[i] = NULL; 
+        for (int j = g->V - 1; j >= 0; j--) {
+            if (g->adj.matrix[i][j] == 0) continue; 
+
+            ListNode* node = (ListNode *)malloc(sizeof(ListNode)); 
+            node->vertex = j+1;
+            node->next = g->adj.list[i]; 
+            g->adj.list[i] = node; 
+        }
+    }
+
+}
+
+void printGraphList(Graph g) {
+    printf("Print graph list\n");
+    for (int i = 0; i < g.V; i++) {
+        printf("%d:\t", i);
+
+        ListNode* temp = g.adj.list[i];
+        while (temp) {
+            printf("%d -> ", temp->vertex); 
+            temp = temp->next; 
+        }
+        printf("\n");
+    }
+    printf("\n");
+}
+
+
 void calDegreeV(Graph g, int *degreeV)
 {
     // Write your code here
+    for (int i = 0; i < g.V; i++) {
+        ListNode* temp = g.adj.list[i];
+        while (temp) {
+            degreeV[i]++; 
+            temp = temp->next; 
+        }
+    }
+
 }
 
 void printDegreeV(int *degreeV,int V)
