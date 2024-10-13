@@ -117,31 +117,33 @@ int Hash(int key,int hSize)
 ListNode* HashSearch(HashTable Q3Hash, int key)
 {
     //write your code here
+    int index = Hash(key, Q3Hash.hSize); 
+    ListNode *temp = Q3Hash.Table[index].head; 
+
+    while(temp) {
+        if (temp->key == key) {
+            return temp; 
+        }
+        temp = temp->next; 
+    }
+    return NULL; 
 }
 
 int HashInsert(HashTable* Q3HashPtr, int key)
 {
     //write your code here
-    int index = Hash(key, Q3HashPtr->hSize);
-    HashTableNode hashtablenode = (Q3HashPtr->Table)[index];
-    ListNode* head = hashtablenode.head; 
+    if (HashSearch(*Q3HashPtr, key) == NULL) {
+        int index = Hash(key, Q3HashPtr->hSize); 
+        ListNode *node = (ListNode *)malloc(sizeof(ListNode));
+        node->key = key; 
+        node->next = Q3HashPtr->Table[index].head; 
+        Q3HashPtr->Table[index].head = node;
+        Q3HashPtr->Table[index].size++;  
+        Q3HashPtr->nSize++; 
 
-    if (head == NULL) {
-        head = (ListNode *)malloc(sizeof(ListNode));
-        head->key = key; 
-        head->next = NULL; 
-        printf("Inserted headnull %d\n", key); 
+        return 1; 
     }
-    else {
-        ListNode* new = (ListNode *)malloc(sizeof(ListNode)); 
-        new->next = head->next; 
-        new->key = key; 
-        head->next = new; 
-        printf("Inserted headnotnull %d\n", key); 
-    }
-
-    hashtablenode.size++;     
-    Q3HashPtr->nSize++;
+    else return 0; 
 
 }
 
