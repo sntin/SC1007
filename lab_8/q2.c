@@ -8,16 +8,47 @@ int *r;
 int cr_recursive(int *p, int n)
 {
     //write your code here
+    if (n == 0) return 0; 
+    int q = 0; 
+    for (int i = 1; i <= n; i++) {
+        int new_q  = p[i] + cr_recursive(p, n-i); 
+        if (new_q > q) q = new_q;   
+    }
+    return q; 
 }
 
 int cr_top_down_dp(int *p, int n)
 {
     //write your code here
+    if (n == 0) {
+        return 0;  
+    }
+
+    int q = 0; 
+    if (r[n] > 0){
+        return r[n];
+    }  
+    else {
+        for (int i = 1; i <= n; i++) {
+            int new_q = p[i] + cr_top_down_dp(p, n-i);
+            if (new_q > q) q = new_q;  
+        }
+        r[n] = q; 
+    }
+    return q; 
 }
 
 int cr_bottom_up_dp(int *p, int n)
 {
     //write your code here
+    r[0] = 0; 
+    for (int i = 1; i <= n ; i++) {
+        for (int j = 1; j <= i; j++) {
+            int new_q = p[j] + r[i-j];
+            if (new_q > r[i]) r[i] = new_q; 
+        }
+    }
+    return r[n]; 
 }
  
 void main ()

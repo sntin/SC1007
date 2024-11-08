@@ -8,17 +8,47 @@ int *M;
 int fib_recursive(int n)
 {
     //write your code here
+    if (n == 0) return 0; 
+    if (n == 1) return 1; 
+
+    return fib_recursive(n-1) + fib_recursive(n-2);
 }
 
 int top_down_dp(int n)
 {
     //write your code here
+    if (n == 0) {
+        M[0] = 0; 
+        return 0; 
+    }
+    
+    if (n == 1) {
+        M[1] = 1; 
+        return 1; 
+    }
 
+    if (M[n-1] == -1) {
+        M[n-1] = top_down_dp(n-1);
+    }
+
+    if (M[n-2] == -1) {
+        M[n-2] = top_down_dp(n-2); 
+    }
+
+    M[n] = M[n-1] + M[n-2]; 
+    return M[n];
 }
 
 int bottom_up_dp(int n)
 {
     //write your code here
+    M[0] = 0;
+    M[1] = 1; 
+
+    for (int i = 2; i <= n; i++) {
+        M[i] = M[i-1] + M[i-2];
+    }
+    return M[n];
 }
  
 void main ()

@@ -9,6 +9,27 @@ int *r;
 int cr_bottom_up_dp_print(int *p, int n)
 {
     //write your code here
+    r[0] = 0; 
+    int cuts[10]; 
+    for (int i = 0; i < 10; i++) cuts[i] = i; 
+
+    for (int i = 1; i <= n ; i++) {
+        for (int j = 1; j <= i; j++) {
+            int new_q = p[j] + r[i-j];
+            if (new_q > r[i]) {
+                r[i] = new_q; 
+                cuts[i] = j;  
+            }
+        }
+    }
+
+    printf("Pipe with lengths ");
+    while (n > 0) {
+        printf("%d ", cuts[n]);
+        n -= cuts[n];
+    }
+
+    return r[n]; 
 }
 
  
