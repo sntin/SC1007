@@ -71,6 +71,19 @@ int graphColoring(
     int color[], int v)
 {
     //write your code here
+    if (v == V) return 1; 
+
+    for (int c = 1; c <= m; c++) {
+        if (isSafe(v, graph, color, c)) {
+            color[v] = c; 
+            if (graphColoring(graph, m , color, v+1) == 1) {
+                return 1; 
+            }
+
+            color[v] = 0; 
+        }
+    }
+    return 0; 
 }
  
  

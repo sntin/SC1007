@@ -1,10 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int nQueensAll(int** board, int N, int col);
+int nQueens(int** board, int N, int col);
 int isSafe(int** board,int N, int row, int col);
 void printSolution(int** board, int N);
-int count = 0;
 
 int main()
 {
@@ -24,19 +23,29 @@ int main()
        for(j=0;j<BSize;j++)
            board[i][j] = 0;
 
-    nQueensAll(board, BSize, 0);
-    if (count == 0)
+    if (!nQueens(board, BSize, 0))
     	printf("Solution does not exist");
-    else
-    	printf("There are total %d solutions",count);
+    else {
+        printSolution(board, BSize); 
+    }
 
     return 0;
 }
 
-
-int nQueensAll(int** board, int BSize, int col)
+int nQueens(int** board, int BSize, int col)
 {
      // write your code here
+    if (col >= BSize) return 1; 
+
+    for (int i = 0; i < BSize; i++) {
+        if (isSafe(board, BSize, i, col) == 1) {
+            board[i][col] = 1; 
+            if (nQueens(board, BSize, col+1) == 1) return 1; 
+            board[i][col] = 0; 
+        }  
+
+    }
+    return 0; 
 }
 
 //Safe checking
